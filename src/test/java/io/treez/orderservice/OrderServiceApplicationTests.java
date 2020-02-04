@@ -10,4 +10,9 @@ class OrderServiceApplicationTests {
 	void contextLoads() {
 	}
 
+    @Test
+    void testCanary() {
+        assert true;
+    }
+
 }
