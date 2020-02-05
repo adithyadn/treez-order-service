@@ -1,4 +1,4 @@
-# Sample Request
+# Sample Requests
 
 ## Inventory Service
 1. Create inventory item
