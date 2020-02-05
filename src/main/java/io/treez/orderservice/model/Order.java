@@ -1,11 +1,11 @@
 package io.treez.orderservice.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.treez.orderservice.enums.OrderStatus;
 import io.treez.orderservice.enums.ShippingType;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +17,7 @@ public class Order {
     @Column(name = "order_id")
     private long orderId;
 
-    @Column(nullable = false, name = "order_ts")
+    @Column(name = "order_ts")
     private Instant orderDateTime;
 
     @Enumerated(EnumType.STRING)
@@ -29,7 +29,7 @@ public class Order {
     private OrderStatus orderStatus;
 
     @Column(name = "order_sub_total")
-    private double orderSubtotal;
+    private double orderSubTotal;
 
     @Column(name = "tax")
     private double tax;
@@ -37,8 +37,7 @@ public class Order {
     @Column(name = "order_total")
     private double orderTotal;
 
-    @Transient
-    @JsonInclude
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
 
     @Column(name = "shipping_address")
@@ -76,12 +75,12 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public double getOrderSubtotal() {
-        return orderSubtotal;
+    public double getOrderSubTotal() {
+        return orderSubTotal;
     }
 
-    public void setOrderSubtotal(double orderSubtotal) {
-        this.orderSubtotal = orderSubtotal;
+    public void setOrderSubTotal(double orderSubTotal) {
+        this.orderSubTotal = orderSubTotal;
     }
 
     public double getTax() {
@@ -114,5 +113,14 @@ public class Order {
 
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    public void addOrderItem(OrderItem item) {
+        System.out.println("Inside add Order Item");
+        if (orderItems == null) {
+            orderItems = new ArrayList<>();
+        }
+        item.setOrder(this);
+        orderItems.add(item);
     }
 }

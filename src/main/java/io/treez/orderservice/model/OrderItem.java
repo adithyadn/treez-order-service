@@ -1,5 +1,7 @@
 package io.treez.orderservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,7 +10,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
-    private long orderItemID;
+    private long orderItemId;
 
     @Column(name = "quantity")
     private int quantity;
@@ -16,20 +18,21 @@ public class OrderItem {
     @Column(name = "item_price")
     private double itemPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "product_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false, referencedColumnName = "order_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
-    public long getOrderItemID() {
-        return orderItemID;
+    public long getOrderItemId() {
+        return orderItemId;
     }
 
-    public void setOrderItemID(long orderItemID) {
-        this.orderItemID = orderItemID;
+    public void setOrderItemId(long orderItemId) {
+        this.orderItemId = orderItemId;
     }
 
     public int getQuantity() {

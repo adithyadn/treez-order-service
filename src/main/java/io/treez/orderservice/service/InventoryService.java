@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class InventoryService {
 
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public InventoryService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public List<Product> listAllProducts() {
         return productRepository.findAll();

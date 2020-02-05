@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/inventories")
 public class InventoryController {
 
+    private final InventoryService inventoryService;
+
     @Autowired
-    private InventoryService inventoryService;
+    public InventoryController(InventoryService inventoryService) {
+        this.inventoryService = inventoryService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<List<Product>> getAllProducts() {
