@@ -48,4 +48,5 @@ public class InventoryController {
         inventoryService.deleteProduct(productId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
 }
