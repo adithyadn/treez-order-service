@@ -5,7 +5,6 @@ import io.treez.orderservice.enums.ShippingType;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,7 +36,7 @@ public class Order {
     @Column(name = "order_total")
     private double orderTotal;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
     @Column(name = "shipping_address")
@@ -115,12 +114,4 @@ public class Order {
         this.shippingAddress = shippingAddress;
     }
 
-    public void addOrderItem(OrderItem item) {
-        System.out.println("Inside add Order Item");
-        if (orderItems == null) {
-            orderItems = new ArrayList<>();
-        }
-        item.setOrder(this);
-        orderItems.add(item);
-    }
 }

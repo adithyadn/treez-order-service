@@ -58,8 +58,9 @@ public class OrderService {
 
         for (OrderItem item : previousOrder.getOrderItems()) {
             System.out.println("DELETIN*********" + item.getOrderItemId());
-            orderItemRepository.deleteById(item.getOrderItemId());
+            item.setOrder(null);
         }
+        previousOrder.getOrderItems().clear();
 
         //Update previous order with new order details.
         previousOrder.setOrderStatus(OrderStatus.MODIFIED);
@@ -69,11 +70,11 @@ public class OrderService {
         previousOrder.setShippingType(order.getShippingType());
         previousOrder.setOrderSubTotal(order.getOrderSubTotal());
         previousOrder.setTax(order.getTax());
-        previousOrder.setOrderItems(order.getOrderItems());
+        previousOrder.getOrderItems().addAll(order.getOrderItems());
 
+        validateAndUpdateProduct(previousOrder);
 
-        Order newOrder = validateAndUpdateProduct(previousOrder);
-        return orderRepository.save(newOrder);
+        return orderRepository.save(previousOrder);
 
     }
 
@@ -87,6 +88,8 @@ public class OrderService {
 
             //Deduct the quantity from the product in the inventory
             product.setQuantity(product.getQuantity() - item.getQuantity());
+            System.out.println("Order here is " + order);
+            System.out.println("Order ID here is " + order.getOrderId());
             item.setOrder(order);
             item.setProduct(product);
         }
