@@ -43,6 +43,17 @@ $ mvn spring-boot:run
 - Spring Data JPA provides CRUD capabilities to any domain object without the need of any boilerplate code.
 - In general, Spring Data JPA minimizes the amount of source code needed to write custom queries.
 
+#### Cancel orders:
+- When we cancel orders, it would be ideal to still hold orders in the databases and not delete them. 
+- There is no hard delete of orders implemented, Only soft deletes are implemented by marking the order as CANCELLED. 
+- HTTP Delete method is utilized to perform this soft delete operation. 
+- Once order is cancelled, the products are restocked. 
+
+### Insufficient Inventory:
+- In an event of insufficient stock, the create order or update order API calls will raise exception and  HTTP 409 (Conflict) status code is returned to the client. 
+
+### No Resource Found:
+- In scenarios where the product or order is not found, an exception is raised and HTTP 404 is returned to client. 
 
 #### Possible enhancements:
 - Convert current implementation into two micro-services (orders, inventory). This way we can isolate failures, independently scale as needed. 
