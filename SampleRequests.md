@@ -1,16 +1,18 @@
 # Sample Request
 
-
-	1. Create inventory item
-		  POST http://localhost:3000/inventories
-		```	 
-		    {
-			"productName": "Apple iPhone",
-			"description": "Best iPhone Ever",
-			"quantity": 100,
-			"price": 999.99
-            	}
-		```
+```json
+Here goes your json object definition
+```
+1. Create inventory item
+   POST http://localhost:3000/inventories
+```json
+	{
+		"productName": "Apple iPhone",
+		"description": "Best iPhone Ever",
+		"quantity": 100,
+		"price": 999.99
+	}
+```
 	2. Read all inventory items
 		  GET http://localhost:3000/inventories
 	3. Read single inventory item
