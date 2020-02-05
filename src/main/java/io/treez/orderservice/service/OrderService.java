@@ -57,7 +57,6 @@ public class OrderService {
         //remove previous orderItems
 
         for (OrderItem item : previousOrder.getOrderItems()) {
-            System.out.println("DELETIN*********" + item.getOrderItemId());
             item.setOrder(null);
         }
         previousOrder.getOrderItems().clear();
@@ -88,8 +87,6 @@ public class OrderService {
 
             //Deduct the quantity from the product in the inventory
             product.setQuantity(product.getQuantity() - item.getQuantity());
-            System.out.println("Order here is " + order);
-            System.out.println("Order ID here is " + order.getOrderId());
             item.setOrder(order);
             item.setProduct(product);
         }
