@@ -49,10 +49,10 @@ $ mvn spring-boot:run
 - HTTP Delete method is utilized to perform this soft delete operation. 
 - Once order is cancelled, the products are restocked. 
 
-### Insufficient Inventory:
+#### Insufficient Inventory:
 - In an event of insufficient stock, the create order or update order API calls will raise exception and  HTTP 409 (Conflict) status code is returned to the client. 
 
-### No Resource Found:
+#### No Resource Found:
 - In scenarios where the product or order is not found, an exception is raised and HTTP 404 is returned to client. 
 
 #### Possible enhancements:
